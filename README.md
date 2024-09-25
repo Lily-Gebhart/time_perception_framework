@@ -20,7 +20,7 @@ The following features are integrated in all experiments designed with this fram
 - Users can press the "ESCAPE" key to exit the experiment at any time.
 - Experimental trial data is saved to a datatable specific to each experiment type. Sample analysis scripts are provided.
 
-## Replication Experiments
+## Reproduction Experiments
 Time replication experiments assess how well a user can replicate a given time interval, inidirectly assessing patients' working memory capacity as they temporarily store the interval duration before replicating it. The presented time intervals can be auditory or visual. Only visual intervals are supported here. 
 
 The following customizations can be made to the base experiment:
