@@ -1,0 +1,5 @@
+Image,Time_Condition,Response
+default,2,shorter
+default,1,longer
+default,2,shorter
+default,1,longer

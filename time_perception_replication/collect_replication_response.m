@@ -1,11 +1,10 @@
 % Function to collect response for different experiment types. 
-
 function time = collect_replication_response(replication_type)
     keylist=zeros(1, 256);
     keylist([41,44])=1; % FIXME: need to find a universal way to indicate space key
     KbQueueCreate(-3, keylist);
     KbQueueStart(-3);
-    [~, ~, ~, ~, ~] = KbQueueCheck(-3); 
+    [~, first_press, ~, ~, ~] = KbQueueCheck(-3); 
     
     if replication_type == "hold"
         while first_press == 0
@@ -18,7 +17,7 @@ function time = collect_replication_response(replication_type)
         end
         while last_release == 0 % Gets release of key
             [~, ~, ~, ~, last_release] = KbQueueCheck(-3); 
-        end     
+        end   
         stop_time = last_release(last_release > 0);
     
     elseif replication_type == "start_stop"
@@ -36,10 +35,10 @@ function time = collect_replication_response(replication_type)
         while last_press == 0
             [~, ~, ~, last_press, ~] = KbQueueCheck(-3);
         end
-        stop_time = last_press(last_press > 0);
+        stop_time = last_press(last_press > 0)
     
     elseif replication_type == "stop"
-        [start_time, ~, ~, ~] = GetSecs();
+        start_time = GetSecs();
         while first_press == 0
             [~, first_press, ~, ~, ~] = KbQueueCheck(-3);
         end
@@ -51,4 +50,5 @@ function time = collect_replication_response(replication_type)
     end 
 
     time = stop_time - start_time; % Response time is end of hold minus beginning of hold. 
+    %time = stop_time
 end

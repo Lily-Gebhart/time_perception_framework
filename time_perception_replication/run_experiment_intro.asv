@@ -1,0 +1,21 @@
+function run_experiment_intro(replication_type)
+% Runs the experiment intro, identical but customizable for each
+% experiment! 
+    statements = "In the task, you will be presented with an image for a period of time.  Pay attention to how long the image is presented on the screen. \n \n Press the spacebar to continue";
+    statements = append(statements, "When the image is removed from the screen, you will be replicating how long the image felt like it was on screen. \n \n Press the spacebar to continue");
+    if replication_type == "start_stop"
+        statements = append(statements, "Click the spacebar to start the interval, and click the spacebar again to indicate when you think the image was removed from screen. \n \n Press the spacebar to continue.");
+    elseif replication_type == "hold"
+        statements = append(statements, "Hold down on the spacebar to indicate how long it felt like the image was onscreen.");
+    elseif replication_type == "stop"
+        statements = append(statements, "Soon after the image leaves the screen, a black "plus" will appear on screen.");
+        statements = append(statements, "The appearance of the "plus" indicates the start of the interval. Click the spacebar to indicate when the interval should end.");
+    else
+        % Error!!
+    end
+
+    statements = append(statements, "Please do not count the durations of the images to compare them. You can press the "escape" button at any time to end the experiment. \n \n Press the spacebar to continue');
+    statements = append(statements, "Please ask the proctor if you have any questions. \n \n Press the spacebar to continue.');
+    statements = append(statements, 'The training segment will begin when you press the spacebar. \n \n Press the spacebar to begin.');
+    run_textblock(statements);
+end 
