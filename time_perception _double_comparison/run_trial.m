@@ -1,4 +1,4 @@
-function [result] = run_trial(stimuli, durations, exp_type, response_type)
+function [response] = run_trial(stimulus, standard_duration, comp_duration, comp_order, comp_type, back_color, black, directory_link, window, screenXpixels, screenYpixels)
 % Function to run each trial. 
 % Requires knowledge of the 
 %   stimuli used on each trial (list), 
@@ -6,37 +6,56 @@ function [result] = run_trial(stimuli, durations, exp_type, response_type)
 %   and the response_type (indicated in the main experiment function).
 % Returns the trial response. 
 
-if exp_type == "comparison_double" && comp_order == "random"
-    stimuli = stimuli(randperm(length(stimuli)));
-
-for i = 1:length(stimuli)
-    Screen('DrawTexture', window, stimuli(i), [], [], 0);
-    Screen('Flip', window);
-    WaitSecs(durations(i));
-    Screen('FillRect', window, background_color); % Uses universal parameter.
-    Screen('Flip', window);
-    WaitSecs(0.5);
+% Randomize stimulus presentation order? 
+if comp_order == "random"
+    order = randperm(2);
+    if order(1) == 1
+        duration1 = standard_duration;
+        duration2 = comp_duration;
+    else
+        duration1 = comp_duration;
+        duration2 = standard_duration;
+    end
+else
+    duration1 = standard_duration;
+    duration2 = comp_duration;
 end
+
+if stimulus == "default"
+    stimulus_link = directory_link + stimulus + ".jpg";
+else
+    stimulus_link = directory_link + stimulus;
+end
+
+texture = Screen('MakeTexture', window, resize_image(imread(stimulus_link), screenYpixels));
+Screen('DrawTexture', window, texture, [], [], 0);
+Screen('Flip', window);
+WaitSecs(duration1);
+Screen('FillRect', window, back_color); 
+Screen('Flip', window);
+WaitSecs(1);
+
+Screen('DrawTexture', window, texture, [], [], 0);
+Screen('Flip', window);
+WaitSecs(duration2);
+Screen('FillRect', window, back_color);
+Screen('Flip', window);
+WaitSecs(0.5);
 
 % Response signal
 WaitSecs(0.5);
-Screen('FillRect', window, gray);
+Screen('FillRect', window, back_color);
 Screen('Flip', window);
 Screen('TextSize', window, round(screenXpixels/40));
 Screen('TextFont', window, 'Arial');
 DrawFormattedText(window, '+', 'center', 'center', 0, round(screenXpixels*(1/20)), black);   
 Screen('Flip', window);
 
-if exp_type == "replication"
-    response = collect_replication_response(response_type);
-    result = [stimuli, durations, response];
-else
-    response = collect_comparison_response();
-    if exp_type == "comparison_single"
-        % Altering response to fit what it needs to be for table
-        result = [stimuli, durations, response];
-    elseif exp_type == "comparison_double"
-        result = [stimuli(1), stimuli(2), durations(1), durations(2), response];
-    end
-end
+response = collect_comparison_response(comp_type);
+% Switching response order if presentation was random
+if response == "shorter" && duration1 == comp_duration
+    response = "longer";
+elseif response == "longer" && duration1 == comp_duration
+    response = "shorter";
+WaitSecs(0.5);
 end

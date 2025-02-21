@@ -6,11 +6,11 @@ function [est_time, total_num_trials, results_table, exp_condition_list, train_c
     % Creating the randomized experiment and training condition numbers
     exp_condition_list = repmat(1:total_num_conditions, 1, num_trials);
     exp_condition_list = exp_condition_list(randperm(length(exp_condition_list)));
-    train_condition_list = randi(2, 1, num_training_trials);
+    train_condition_list = randi(total_num_conditions, 1, num_training_trials);
     
     % Determining break times based on the specified number of breaks.
     break_times = round(linspace(1, total_num_trials, num_breaks+2)); 
-    break_times = break_times(:, 2:num_breaks+1);
+    break_times = break_times(:, 2:num_breaks+1) - 1;
     
     % Creating the results table. 
     table_var_types = ["string", "double", "double"];

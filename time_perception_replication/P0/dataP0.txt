@@ -1,5 +1,0 @@
-Image,Time_Condition,Response
-default,1,shorter
-default,2,longer
-default,2,longer
-default,2,shorter

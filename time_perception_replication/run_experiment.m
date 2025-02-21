@@ -17,12 +17,6 @@ function results = run_experiment(directory_link, save_after, participant_number
             black, ...
             screenXpixels);
 
-    display_screen_text('You will begin with several practice trials to get used to the task. You can press the escape key at any time to exit the experiment. \n \n Press the spacebar to continue.', ...
-            window, ...
-            back_color, ... 
-            black, ...
-            screenXpixels);
-
     % Task specific instructions 
     run_experiment_intro(replication_type, window, back_color, black, screenXpixels);
 
@@ -55,10 +49,10 @@ function results = run_experiment(directory_link, save_after, participant_number
     break_statement = 'You may now take a break. \n \n Press the spacebar to continue the session.';
     for trial_counter=1:num_trials
         if mod(trial_counter, save_after) == 0                                                                            
-            if exist(char(directory_link + "/P" + string(participant_number + "/dataP" + string(participant_number))), 'file')~=0
-                delete(char(directory_link + "/P" + string(participant_number + "/dataP" + string(participant_number))));
+            if exist(char(directory_link + "/results" + string("/dataP" + string(participant_number))), 'file')~=0
+                delete(char(directory_link + "/results" + string("/dataP" + string(participant_number))));
             end
-            writetable(results, char(directory_link + "/P" + string(participant_number + "/dataP" + string(participant_number))))
+            writetable(results, char(directory_link + "/results" + string("/dataP" + string(participant_number))))
         end
         condition_num = exp_condition_list(trial_counter);
         [stimulus, duration] = find_condition(stimulus_type, durations, condition_num);
@@ -76,10 +70,10 @@ function results = run_experiment(directory_link, save_after, participant_number
     end
     
     % Saving data table
-    if exist(char(directory_link + "/P" + string(participant_number + "/dataP" + string(participant_number))), 'file')~=0
-                delete(char(directory_link + "/P" + string(participant_number + "/dataP" + string(participant_number))));
+    if exist(char(directory_link + "/results" + string("/dataP" + string(participant_number))), 'file')~=0
+                delete(char(directory_link + "/results" + string("/dataP" + string(participant_number))));
     end
-    writetable(results, char(directory_link + "/P" + string(participant_number + "/dataP" + string(participant_number))))
+    writetable(results, char(directory_link + "/results" + string("/dataP" + string(participant_number))))
         
 
     % Experiment outro

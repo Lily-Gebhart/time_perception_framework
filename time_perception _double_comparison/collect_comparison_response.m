@@ -1,6 +1,6 @@
 % FUNCTION: Collects participant response on which image they felt like was
 % longer: first or second presented.      
-function response = collect_comparison_response()
+function response = collect_comparison_response(comp_type)
     keylist=zeros(1, 256);
     if comp_type == "shorter/equal/longer"
         keys = [KbName('ESCAPE'), KbName('1!'), KbName('2@'), KbName('3#')];
@@ -12,7 +12,7 @@ function response = collect_comparison_response()
     KbQueueStart(-3);    
     [~, first_press, ~, ~, ~] = KbQueueCheck(-3); 
     while first_press == 0
-        [~, first_press, ~, ~, ~] = KbQueueCheck(-3); 
+        [~, first_press, ~, ~, ~] = KbQueueCheck(-3);
     end   
     % Leaves experiment if participant clicks escape key. 
     if KbName(first_press) == "ESCAPE"  
@@ -23,7 +23,7 @@ function response = collect_comparison_response()
     elseif comp_type == "shorter/longer"
         if KbName(first_press) == "1!"
             response = "shorter"; 
-        elseif KbName(firstpress) == "2@"
+        elseif KbName(first_press) == "2@"
             response = "longer";
         end
     elseif comp_type == "equal/not equal"

@@ -1,17 +1,18 @@
-function results = run_singlecomp_experiment(directory_link, save_after, participant_number, ...
-    background_color, num_breaks, num_training_trials, stimulus, standard_duration, ...
-    comp_durations, num_comp_trials, comp_type, ...
+function results = run_doublecomp_experiment(directory_link, save_after, participant_number, ...
+    background_color, num_breaks, num_training_trials, stimulus, twoimage_standard_durations, ...
+    twoimage_comp_durations, num_comp_trials, comp_type, comp_order, ...
     white, grey, black, window, screenXpixels, screenYpixels)
     % FIXME: If failed at any time, do the exit sequence
     
-    [est_time, num_trials, results, exp_condition_list, train_condition_list, break_times] = setup_task(comp_durations, num_comp_trials, num_training_trials, num_breaks);
+    [est_time, num_trials, results, exp_condition_list, train_condition_list, break_times] = setup_task(twoimage_comp_durations, num_comp_trials, num_training_trials, num_breaks);
 
     if background_color == "grey"
         back_color = grey;
     else
         back_color = white;
     end
-    
+
+    % Experiment Intro 
     display_screen_text('Thank you for your interest in participating in this experiment. \n \n Press the spacebar to continue.', ...
             window, ...
             back_color, ... 
@@ -24,21 +25,22 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
             black, ...
             screenXpixels);
 
-    statement = 'In the task, you will be asked how the durations of images presented on each trial compare to a standard image. \n \n Press the spacebar to continue.';
+    % Task specific instructions 
+    statement = 'In the task, you will be presented with two images, one after the other. \n \n Press the spacebar to continue.';
     display_screen_text(statement, ...
             window, ...
             back_color, ... 
             black, ...
             screenXpixels);
-    
-    statement = 'The duration of the standard image will be presented before the training trials begin, and again before the experimental trials begin. \n \n Press the spacebar to continue.';
+
+    statement = 'After both images are presented, a black "plus" will appear on the screen. \n \n Press the spacebar to continue';
     display_screen_text(statement, ...
             window, ...
             back_color, ... 
             black, ...
             screenXpixels);
-    
-    statement = 'In each trial, an image will be presented, then a black "plus" will appear on the screen. \n \n Press the spacebar to continue.';
+
+    statement = 'Once the black plus appears, you will make a judgement about how long the second image was on screen relative to the first image. \n \n Press the spacebar to continue.';
     display_screen_text(statement, ...
             window, ...
             back_color, ... 
@@ -46,11 +48,11 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
             screenXpixels);
     
     if comp_type == "shorter/longer"
-        statement = 'Once the black plus appears, press the 1 key if the image presented felt shorter in duration than the standard image or press the 2 key if the image presented felt longer than the standard image. \n \n Press the spacebar to continue.';
+        statement = 'Press the 1 key if the second image presented felt shorter in duration than the first image. \n Press the 2 key if the second image presented felt longer than the first image. \n \n Press the spacebar to continue.';
     elseif comp_type == "equal/not equal"
-        statement = 'Once the black plus appears, press the 1 key if the image presented felt like it was presented for the same duration as the standard image. Press 2 otherwise. \n \n Press the spacebar to continue.';
+        statement = 'Press the 1 key if the second image presented felt like it was presented for the same duration as the first image. \n Press 2 otherwise. \n \n Press the spacebar to continue.';
     else 
-        statement = 'Once the black plus appears, press the 1 key if the image presented felt shorter in duration than the standard image. \n Press 2 if the image presented feels like it was presented for the same duration as the standard image. Press 3 if the image presented felt longer than the standard image. \n \n Press the spacebar to continue.';
+        statement = 'Press the 1 key if the second image presented felt shorter in duration than the first image. \n Press 2 if the second image presented feels like it was presented for the same duration as the first image. \n Press 3 if the second image presented felt longer than the first image. \n \n Press the spacebar to continue.';
     end 
     display_screen_text(statement, ...
             window, ...
@@ -58,17 +60,35 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
             black, ...
             screenXpixels);
 
-    % Presenting standard image for single image comparison experiment. 
-    present_std_image(directory_link, stimulus, standard_duration, window, back_color, black, screenXpixels, screenYpixels);
-    WaitSecs(0.5);
+    statement = 'Please do not count the durations of the images to compare them. You can press the "escape" button at any time to end the experiment. \n \n Press the spacebar to continue';
+    display_screen_text(statement, ...
+            window, ...
+            back_color, ... 
+            black, ...
+            screenXpixels);
+
+    statement = 'Please ask the proctor if you have any questions. \n \n Press the spacebar to continue.';
+    display_screen_text(statement, ...
+            window, ...
+            back_color, ... 
+            black, ...
+            screenXpixels);
+
+    statement = 'The training segment will begin when you press the spacebar. \n \n Press the spacebar to begin.';
+    display_screen_text(statement, ...
+            window, ...
+            back_color, ... 
+            black, ...
+            screenXpixels);
 
     % Run training trials
     for trial_counter=1:length(train_condition_list)
         condition_num = train_condition_list(trial_counter);
-        run_trial(directory_link, stimulus, comp_durations(condition_num), comp_type, window, back_color, black, screenXpixels, screenYpixels);
+        [stimulus, standard_duration, comp_duration] = find_condition(condition_num, stimulus, twoimage_comp_durations, twoimage_standard_durations);
+        run_trial(stimulus, standard_duration, comp_duration, comp_order, comp_type, back_color, black, directory_link, window, screenXpixels, screenYpixels);
     end
 
-    % Segway into the experiment.
+   % Segway into the experiment.
     display_screen_text('You have completed the training segment. \n \n Press the spacebar to continue.', ...
             window, ...
             back_color, ... 
@@ -85,10 +105,7 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
             black, ...
             screenXpixels);
 
-    % Presenting standard image for single image comparison experiment. 
-    present_std_image(directory_link, stimulus, standard_duration, window, back_color, black, screenXpixels, screenYpixels);
-    WaitSecs(0.5);
-
+    
     % Run experiment. Breaks Included When Necessary
     break_statement = 'You may now take a break. \n \n Press the spacebar to continue the session.';
     for trial_counter=1:num_trials
@@ -99,11 +116,12 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
             end
             writetable(results, char(directory_link + "/results" + string("/dataP" + string(participant_number))))
         end
-        % Running trial
         condition_num = exp_condition_list(trial_counter);
-        result = run_trial(directory_link, stimulus, comp_durations(condition_num), comp_type, window, back_color, black, screenXpixels, screenYpixels);
+        [stimulus, standard_duration, comp_duration] = find_condition(condition_num, stimulus, twoimage_comp_durations, twoimage_standard_durations);
+        result = run_trial(stimulus, standard_duration, comp_duration, comp_order, comp_type, back_color, black, directory_link, window, screenXpixels, screenYpixels);
         results.Stimulus(trial_counter) = stimulus;
-        results.Time_Condition(trial_counter) = comp_durations(condition_num);
+        results.Standard_Time_Condition(trial_counter) = standard_duration;
+        results.Comp_Time_Condition(trial_counter) = comp_duration;
         results.Response(trial_counter) = result;
         % Checking to present break
         if any(break_times == trial_counter)
@@ -116,7 +134,7 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
     end
     
     % Saving data table
-    if exist(char(directory_link + "/results" + string("/dataP" + string(participant_number))), 'file')~=0
+    if exist(char(directory_link + "/results" + "/dataP" + string(participant_number)), 'file')~=0
                 delete(char(directory_link + "/results" + string("/dataP" + string(participant_number))));
     end
     writetable(results, char(directory_link + "/results" + string("/dataP" + string(participant_number))))
@@ -129,7 +147,6 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
             black, ...
             screenXpixels);
 
-    % Press the spacebar to continue and exit the experiment screen. 
     % End experiment. Exit screen.
     Screen('Close', window);
 end

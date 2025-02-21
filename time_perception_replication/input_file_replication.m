@@ -7,19 +7,19 @@
  
 
 % General Parameters - to be changed for each operating system and experiment.
-directory_link = "/Users/lilygebhart/Downloads/time_perception-main/time_perception_replication/";      % directory for experiment folders
-save_after = 0;                     % Save data after __ trials.
-participant_number = 0;             % participant number
+directory_link = "/Users/lilygebhart/Downloads/time_perception/time_perception_replication/";      % directory for experiment folders
+save_after = 5;                     % Save data after __ trials.
+participant_number = 3;             % participant number
 background_color = "white";         % Choices: "white", "grey"
 num_breaks = 1;                     % Number of breaks participants will have throughout the experiment.
-num_training_trials = 1;            % Number of training trials to include before data collection. 
+num_training_trials = 5;            % Number of training trials to include before data collection. 
 
 
 % Parameters Specific to the Time Reproduction Task
-replication_type = "stop";    % Choices: "start_stop", "hold", "stop"
+replication_type = "hold";    % Choices: "start_stop", "hold", "stop"
 stimulus_type = "default";     % Choices: "default", ["image path #1", "image path #2, ...].
 durations = [1,2];                     % Durations to test per stimulus. Assumes same  durations for each stimulus.
-num_trials = 1;                     % How many trials per duration-stimulus combination.
+num_trials = 10;                     % How many trials per duration-stimulus combination.
 
 
 % Experiment Setup - do not change
