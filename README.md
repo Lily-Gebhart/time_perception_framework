@@ -1,5 +1,5 @@
-# A User Friendly Approach to Short Duration Time Perception
-Included is a body of MATLAB code designed for running time perception experiments using [Psychtoolbox 3.0.19](http://psychtoolbox.org/download) on [MATLAB 2024B](https://www.mathworks.com/products/new_products/latest_features.html). Psychtoolbox is open access and free to use, while MATLAB can be accessed via a subscription by most universities and organizations. No packages or other dependencies are required except for those included here.
+# A User Friendly Approach to Measuring Short Duration Time Perception
+Included is a body of MATLAB code designed for running time perception experiments using [Psychtoolbox 3.0.19.16 "Last Free Dessert"]([http://psychtoolbox.org/download](https://github.com/Psychtoolbox-3/Psychtoolbox-3/releases)) on [MATLAB 2024B](https://www.mathworks.com/products/new_products/latest_features.html). This version of Psychtoolbox is open access and free to use on any device, while MATLAB can be accessed via a subscription by most universities and organizations. Sample analysis code is provided in [R 4.4.2 "Pile of Leaves"](https://cran.r-project.org/bin/windows/base/), an open access programming language and platform. No packages or other dependencies are required.
 
 # What kinds of experiments can I run using this code?
 This code only supports visual prospective time replication and comparison experiments. The following structure is used for all experiments: Insert diagram. 
@@ -56,153 +56,115 @@ Double comparison experiments can be customized in the following ways under this
 
 
 # How to customize experiments 
-All experiments are customized using the parameters in the input_file.m file. Descriptions of each parameter are included in the input file. The parameters that can be changed are structured roughly as they are outlined above.  Examples of how to change the parameters to run each task follow in the "Example" sections. Only parameters relevant to the experiment at hand need to be changed and will be displayed in each example.  
+All experiments are customized using the parameters in that experiment's input file. Descriptions of each parameter are included in the input file. The parameters that can be changed are structured roughly as they are outlined above.  Examples of how to change the parameters to run each task follow in the "Example" sections. Only parameters relevant to the experiment at hand need to be changed and will be displayed in each example.  
 
-Suppose for all experiments that we've downloaded the experiment code folder to the directory: "downloads/time_perception_code". We want to save our data after every five trials, the background to be white, and three breaks to be in our experiment. We want to run 10 training trials before our experiment begins and 10 trials for each duration (and stimulus, depending on the experiment) combination. 
+Suppose for all experiments that we've downloaded the experiment code folder to the directory: "downloads/time_perception". We want to save our data after every five trials, the background to be white, and three breaks to be in our experiment. We want to run 10 training trials before our experiment begins and 10 trials for each duration (and stimulus, depending on the experiment). Let's assume for now that we're just running participant 1 on each experiment and using the image "default.jpg" for each experiment.
 
-Let's assume for now that we're running participant 1 on the experiment. Below is the code as it appears in the input_file.m file for reference. 
+## Replication Experiment Example
+Suppose we want to run a replication experiment with the default stimulus to assess how well participants can remember and distinguish between close together time intervals. Navigate to the "input_file_replication.m" file in the time_perception_replication folder. 
 
 ```
 % General Parameters - to be changed for each operating system and experiment.
 directory_link = "Change me!";      % directory for experiment folders
-save_after = 0;                     % Save data after __ trials.
-participant_number = 0;             % participant number
-background_color = "Change me!";    % Choices: "white", "gray"
-num_breaks = 0;                     % Number of breaks participants will have throughout the experiment.
-num_training_trials = 0;            % Number of training trials to include before data collection. 
-num_trials = 0;                     % How many trials per duration-stimulus combination.
-experiment_type = "Change me!";     % Choices: "reproduction", "comparison"
+save_after = 5;                     % Save data after __ trials.
+participant_number = 4;             % participant number
+background_color = "white";         % Choices: "white", "grey"
+num_breaks = 1;                     % Number of breaks participants will have throughout the experiment.
+num_training_trials = 5;            % Number of training trials to include before data collection. 
+
 
 % Parameters Specific to the Time Reproduction Task
-replication_type = "Change me!";    % Choices: "start_stop", "hold", "stop"
-stimulus_type = ["Change me!"];     % Choices: "default", ["image path #1", "image path #2, ...].
-durations = [];                     % Durations to test per stimulus. Assumes same  durations for each stimulus.
-
-% Parameters Specific to the Time Comparison Task
-single_image = true;                % Is a single image presented on each trial and compared to a standard (true)? Otherwise, two images will be directly compared on each trial. 
-comp_type = [];                     % How should images be compared? 
-                                        % Choices: "shorter/longer", "equal/not equal", "shorter/equal/longer". 
-
-% If one image is compared on each trial:
-stimulus = "Change me!";           % Choices: "default", "standard image link"
-standard_duration = 0;             % Duration of standard image.  
-comp_durations = [];               % Durations for comparison images. 
-num_comp_trials = 0;               % How many trials per duration being compared. 
-
-% If two images are compared on each trial:
-comp_order = "Change me!";          % Choices: "fixed", "random"
-comp_stimuli = [];                  % Paired list of stimulus links, indicating which stimuli should be compared. The first image in each pair will be the "standard"
-twoimage_standard_durations = [];   % Durations for standard images. Each duration will be used for each standard image.
-twoimage_comp_durations = [[]];     % What comparison durations should be used relative to each standard duration? List in order of standard durations indicated above.
+replication_type = "hold";    % Choices: "start_stop", "hold", "stop"
+stimulus_type = "default";     % Choices: "default", ["image path #1", "image path #2, ...].
+durations = [1,2];                     % Durations to test per stimulus. Assumes same  durations for each stimulus.
+num_trials = 10;                     % How many trials per duration-stimulus combination.
 ```
 
-
-## Replication Experiment Example
-Suppose we want to run a replication experiment with the default stimulus to assess how well participants can remember and distinguish between close together time intervals.  First we'll set the experiment type to replication under the General Parameters section. 
+For this version of the experiment, we want participants to hold down on the space bar when they replicate intervals to respond. Since we want to use the default stimulus, we'll set the stimulus type accordingly. We will test the default stimulus on two durations - 1s, 2s - with ten trials for each duration so we can average them later on. We'll set these parameters in the Time Reproduction Task section. 
 
 ```
 % General Parameters - to be changed for each operating system and experiment.
-directory_link = "downloads/time_perception_code";      % directory for experiment folders
-save_after = 5;                                         % Save data after __ trials.
-participant_number = 1;                                 % participant number
-background_color = "white";                             % Choices: "white", "gray"
-num_breaks = 3;                                         % Number of breaks participants will have throughout the experiment.
-num_training_trials = 10;                               % Number of training trials to include before data collection. 
-num_trials = 10;                                        % How many trials per duration-stimulus combination.
-experiment_type = "replication";                        % Choices: "reproduction", "comparison"
-```
+directory_link = "downloads/time_perception";      % directory for experiment folders
+save_after = 5;                     % Save data after __ trials.
+participant_number = 1;             % participant number
+background_color = "white";         % Choices: "white", "grey"
+num_breaks = 3;                     % Number of breaks participants will have throughout the experiment.
+num_training_trials = 5;            % Number of training trials to include before data collection. 
 
-For this version of the experiment, we want participants to hold down on the space bar when they replicate intervals to respond. Since we want to use the default stimulus, we'll set the stimulus type accordingly. We will test the default stimulus on five durations - 0.4s, 0.45s, 0.5s, 0.55s, 0.6s - with ten trials for each duration so we can average them later on. We'll set these parameters in the Time Reproduction Task section. 
 
-```
 % Parameters Specific to the Time Reproduction Task
-replication_type = "hold";                           % Choices: "start_stop", "hold", "stop"
-stimulus_type = ["default"];                         % Choices: "default", ["image path #1", "image path #2, ...].
-durations = [0.4s, 0.45s, 0.5s, 0.55s, 0.6s];        % Durations to test per stimulus. Assumes same durations for each stimulus.
-```
-
-Suppose that as a follow up experiment, we want to use two non-default stimuli, say two tree images with links "oak_tree.jpg" and "maple_tree.jpg". We can easily make these adjustments in the Time Reproduction task section. 
+replication_type = "hold";    % Choices: "start_stop", "hold", "stop"
+stimulus_type = "default.jpg";     % Choices: "default", ["image path #1", "image path #2, ...].
+durations = [1,2];                     % Durations to test per stimulus. Assumes same  durations for each stimulus.
+num_trials = 10;                     % How many trials per duration-stimulus combination.
 
 ```
-% Parameters Specific to the Time Reproduction Task
-replication_type = "hold";                           % Choices: "start_stop", "hold", "stop"
-stimulus_type = ["oak_tree.jpg", "maple_tree.jpg"];  % Choices: "default", ["image path #1", "image path #2, ...].
-durations = [0.4s, 0.45s, 0.5s, 0.55s, 0.6s];        % Durations to test per stimulus. Assumes same durations for each stimulus.
-```
+
 
 ## Single Image Comparison Experiment Example
 
-Suppose for the single image comparison experiment, we want to run a similar experiment - seeing how well participants can differentiate between close together intervals. We'll switch the experiment type parameter to comparison before setting the rest of the parameters. 
+Suppose for the single image comparison experiment, we want to run a similar experiment - seeing how well participants can differentiate between close together intervals. Now, navigate to the "input_file_singlecomp.m" file in the "time_perception_single_comp" folder. 
 
 ```
 % General Parameters - to be changed for each operating system and experiment.
-directory_link = "downloads/time_perception_code";      % directory for experiment folders
-save_after = 5;                                         % Save data after __ trials.
-participant_number = 1;                                 % participant number
-background_color = "white";                             % Choices: "white", "gray"
-num_breaks = 3;                                         % Number of breaks participants will have throughout the experiment.
-num_training_trials = 10;                               % Number of training trials to include before data collection. 
-num_trials = 10;                                        % How many trials per duration-stimulus combination.
-experiment_type = "comparison";                         % Choices: "reproduction", "comparison"
-```
+directory_link = "Change me!";      % directory for experiment folders
+save_after = 5;                     % Save data after __ trials.
+participant_number = 4;             % participant number
+background_color = "white";         % Choices: "white", "grey"
+num_breaks = 1;                     % Number of breaks participants will have throughout the experiment.
+num_training_trials = 5;            % Number of training trials to include before data collection. 
 
-Let's say we want to use the default stimulus for now and assess whether participants feel like the comparison durations are shorter, equal or longer than the standard durations. We'll let the standard duration be 0.5 seconds, and compare it to five other intervals: 0.4s, 0.45s, 0.5s, 0.55s, 0.6s. 
-Since we're running a single image comparison task, we'll want to make sure to flip the single image parameter to true. 
-
-```
 % Parameters Specific to the Time Comparison Task
-single_image = true;                    % Is a single image presented on each trial and compared to a standard (true)? Otherwise, two images will be directly compared on each trial. 
-comp_type = "shorter/equal/longer";     % How should images be compared? 
-                                            % Choices: "shorter/longer", "equal/not equal", "shorter/equal/longer". 
-
-% If one image is compared on each trial:
-stimulus = "default";                              % Choices: "default", "standard image link"
-standard_duration = 0.5;                           % Duration of standard image.  
-comp_durations = [0.4, 0.45, 0.5, 0.55, 0.6];      % Durations for comparison images. 
+comp_type = "shorter/longer";       % How should images be compared? 
+                                        % Choices: "shorter/longer", "equal/not equal", "shorter/equal/longer". 
+stimulus = "default";               % Choices: "default", or insert your own jpg image.
+standard_duration = 1;             % Duration of standard image.  
+comp_durations = [0.5, 1, 1.5];               % Durations for comparison images. 
+num_comp_trials = 10;               % How many trials per duration being compared. 
 ```
 
-Let's say instead we want participants to just see if the comparison image is equal or unequal in duraiton compared to the standard image, and we want to use the "oak_tree.jpg" image instead of the standard image. We would flip the parameters to something like this:
+Let's say we want to use the default stimulus for now and assess whether participants feel like the comparison durations are shorter or longer than the standard durations. We'll let the standard duration be 1 second, and compare it to three other intervals: 0.5s, 1s, and 1.5s.  
 
 ```
+% General Parameters - to be changed for each operating system and experiment.
+directory_link = "downloads/time_perception";      % directory for experiment folders
+save_after = 5;                     % Save data after __ trials.
+participant_number = 1;             % participant number
+background_color = "white";         % Choices: "white", "grey"
+num_breaks = 3;                     % Number of breaks participants will have throughout the experiment.
+num_training_trials = 5;            % Number of training trials to include before data collection. 
+
 % Parameters Specific to the Time Comparison Task
-single_image = true;                    % Is a single image presented on each trial and compared to a standard (true)? Otherwise, two images will be directly compared on each trial. 
-comp_type = "equal/not equal";          % How should images be compared? 
-                                            % Choices: "shorter/longer", "equal/not equal", "shorter/equal/longer". 
+comp_type = "shorter/longer";       % How should images be compared? 
+                                        % Choices: "shorter/longer", "equal/not equal", "shorter/equal/longer". 
+stimulus = "default";               % Choices: "default", or insert your own jpg image.
+standard_duration = 1;             % Duration of standard image.  
+comp_durations = [0.5, 1, 1.5];               % Durations for comparison images. 
+num_comp_trials = 10;               % How many trials per duration being compared. 
 
-% If one image is compared on each trial:
-stimulus = "oak_tree.jpg";                         % Choices: "default", "standard image link"
-standard_duration = 0.5;                           % Duration of standard image.  
-comp_durations = [0.4, 0.45, 0.5, 0.55, 0.6];      % Durations for comparison images. 
 ```
 
 ## Double Image Comparison Experiment Example
-Suppose for the double image comparison experiment, we want to run the first example used for the single image comparison task, keeping the order of the standard and comparison images fixed. We need to flip the single_image parameter to false, with the remainder of the parameters changed as follows. 
+Suppose for the double image comparison experiment, we want to run the example used for the single image comparison task, keeping the order of the standard and comparison images fixed. Now, navigate to the "input_file_doublecomp.m" file in the "time_perception_double_comp" folder. 
 
 ```
-% If two images are compared on each trial:
-comp_order = "fixed";                                       % Choices: "fixed", "random"
-comp_stimuli = [];                                          % Paired list of stimulus links, indicating which stimuli should be compared. The first image in each pair will be the "standard". If kept empty, the default images will be used. 
-twoimage_standard_durations = [0.5];                        % Durations for standard images. Each duration will be used for each standard image.
-twoimage_comp_durations = [[0.4, 0.45, 0.5, 0.55, 0.6]];    % What comparison durations should be used relative to each standard duration? List in order of standard durations indicated above.
+
 ```
 
 Now suppose we want to run a more complicated experiment. Let's assume we want to compare how a generic tree image ("generic_tree.jpg") is perceived compared to an oak tree image ("oak_tree.jpg") and a maple tree image ("maple_tree.jpg"). We want to look at two different durations, 0.5 seconds and 1.0 seconds for our standard, generic tree image, and five different durations surrounding each of these intervals 0.4s, 0.45s, 0.5s, 0.55s, 0.6s and 0.9s, 0.95s, 1.0s, 1.05s, 1.1s respectively for our oak tree and maple tree images. Let's say we want to randomize the order of the standard and comparison images as well. These changes would be reflected as follows in the experiment parameters. 
 
 ```
-% If two images are compared on each trial:
-comp_order = "random";                                                                          % Choices: "fixed", "random"
-comp_stimuli = [["generic_tree.jpg", "oak_tree.jpg"], ["generic_tree.jpg", "maple_tree.jpg"];   % Paired list of stimulus links, indicating which stimuli should be compared. The first image in each pair will be the "standard". If kept empty, the default images will be used. 
-twoimage_standard_durations = [0.5, 1.0];                                                       % Durations for standard images. Each duration will be used for each standard image.
-twoimage_comp_durations = [[0.4, 0.45, 0.5, 0.55, 0.6], [0.9, 0.95, 1.0, 1.05, 1.1]];           % What comparison durations should be used relative to each standard duration? List in order of standard durations indicated above.
+
 ```
 
 # How to run experiments 
 
+
 ## File framework 
+
 
 ## Saving Participant Data
 
-# Sample Experiment Based on this Framework: Love & Time Perception
 
 # Questions? 
 If you have questions, comments, or concerns, contact ...
