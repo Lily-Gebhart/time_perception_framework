@@ -21,11 +21,8 @@ else
     duration2 = comp_duration;
 end
 
-if stimulus == "default"
-    stimulus_link = directory_link + stimulus + ".jpg";
-else
-    stimulus_link = directory_link + stimulus;
-end
+stimulus_link = directory_link + stimulus;
+
 
 texture = Screen('MakeTexture', window, resize_image(imread(stimulus_link), screenYpixels));
 Screen('DrawTexture', window, texture, [], [], 0);

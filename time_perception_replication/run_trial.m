@@ -7,11 +7,8 @@ function [stimulus, duration, response] = run_trial(stimulus, duration, response
 %   and the response_type (indicated in the main experiment function).
 % Returns the trial response. 
 
-if stimulus == "default"
-    stimulus_link = directory_link + "default.jpg";
-else
-    stimulus_link = directory_link + stimulus;
-end
+stimulus_link = directory_link + stimulus;
+
 texture = Screen('MakeTexture', window, resize_image(imread(stimulus_link), screenYpixels));
 Screen('DrawTexture', window, texture, [], [], 0);
 Screen('Flip', window);
