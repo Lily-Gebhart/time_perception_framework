@@ -1,4 +1,4 @@
-# Code to analyze a single comparison time perception experiment
+# Code to analyze a double comparison time perception experiment
 # Sources:(1) https://www.rpubs.com/Strongway/psy_fun 
 
 
