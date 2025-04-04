@@ -28,7 +28,7 @@ function results = run_experiment(directory_link, save_after, participant_number
         condition_num = train_condition_list(trial_counter);
         [stimulus, duration] = find_condition(stimulus_type, durations, condition_num);
         [~, ~, response] = run_trial(stimulus, duration, replication_type, back_color, black, directory_link, window, screenYpixels, screenXpixels);
-        if response == -1
+        if response == "escape"
             return
         end
     end
@@ -62,7 +62,7 @@ function results = run_experiment(directory_link, save_after, participant_number
     
    % Run experiment. Breaks Included When Necessary
     break_statement = 'You may now take a break. \n \n Press the spacebar to continue the session.';
-    for trial_counter=1:num_trials
+    for trial_counter=1:length(exp_condition_list)
         if mod(trial_counter, save_after) == 0                                                                            
             if exist(char(directory_link + "/results" + string("/dataP" + string(participant_number))), 'file')~=0
                 delete(char(directory_link + "/results" + string("/dataP" + string(participant_number))));
@@ -72,7 +72,7 @@ function results = run_experiment(directory_link, save_after, participant_number
         condition_num = exp_condition_list(trial_counter);
         [stimulus, duration] = find_condition(stimulus_type, durations, condition_num);
         [stimulus, duration, response] = run_trial(stimulus, duration, replication_type, back_color, black, directory_link, window, screenYpixels, screenXpixels);
-        if response == -1
+        if response == "escape"
             return
         end
         results.Image1(trial_counter) = stimulus;

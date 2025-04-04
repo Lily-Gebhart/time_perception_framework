@@ -17,7 +17,7 @@ library(broom)
 # Change results directory and time conditions. 
 results_dir = "/Users/lilygebhart/Downloads/time_perception/time_perception_double_comparison/results" # Replication results directory name
 std_time = 1
-comp_times = c(0.5, 1)
+comp_times = c(0.5, 1, 1.5)
 
 # Construct data frame.
 avg_data = data.frame(participant_num=numeric(), std_time=numeric(), comp_time=numeric(), avg_longer=numeric(), longer=numeric(), shorter=numeric(), num_trials=numeric())

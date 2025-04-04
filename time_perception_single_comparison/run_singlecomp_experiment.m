@@ -84,7 +84,7 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
     for trial_counter=1:length(train_condition_list)
         condition_num = train_condition_list(trial_counter);
         result = run_trial(directory_link, stimulus, comp_durations(condition_num), comp_type, window, back_color, black, screenXpixels, screenYpixels);
-        if result == -1
+        if result == "escape"
             return
         end
     end
@@ -121,7 +121,7 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
 
     % Run experiment. Breaks Included When Necessary
     break_statement = 'You may now take a break. \n \n Press the spacebar to continue the session.';
-    for trial_counter=1:num_trials
+    for trial_counter=1:length(exp_condition_list)
         % Temporarily saving data table
         if mod(trial_counter, save_after) == 0                                                                            
             if exist(char(directory_link + "/results" + string("/dataP" + string(participant_number))), 'file')~=0
@@ -132,7 +132,7 @@ function results = run_singlecomp_experiment(directory_link, save_after, partici
         % Running trial
         condition_num = exp_condition_list(trial_counter);
         result = run_trial(directory_link, stimulus, comp_durations(condition_num), comp_type, window, back_color, black, screenXpixels, screenYpixels);
-        if result == -1
+        if result == "escape"
             return
         end
         results.Stimulus(trial_counter) = stimulus;

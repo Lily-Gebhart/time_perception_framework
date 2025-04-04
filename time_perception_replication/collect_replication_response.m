@@ -12,7 +12,7 @@ function time = collect_replication_response(replication_type)
         end
         start_time = first_press(first_press > 0); % Gets the first keypress                                                                                           
         if KbName(first_press) == "ESCAPE"  % Escapes if the participant wants to finish the experiment.
-            time = -1;                                                                                                   
+            time = "escape";                                                                                                   
             return
         end
         while last_release == 0 % Gets release of key
@@ -25,7 +25,7 @@ function time = collect_replication_response(replication_type)
             [~, first_press, ~, ~, ~] = KbQueueCheck(-3);
         end
         if KbName(first_press) == "ESCAPE"  % Escapes if the participant wants to finish the experiment.
-            time = -1;                                                                                                   
+            time = "escape";                                                                                                   
             return
         end
         start_time = first_press(first_press > 0);
@@ -35,7 +35,7 @@ function time = collect_replication_response(replication_type)
         while last_press == 0
             [~, ~, ~, last_press, ~] = KbQueueCheck(-3);
         end
-        stop_time = last_press(last_press > 0)
+        stop_time = last_press(last_press > 0);
     
     elseif replication_type == "stop"
         start_time = GetSecs();
@@ -43,7 +43,7 @@ function time = collect_replication_response(replication_type)
             [~, first_press, ~, ~, ~] = KbQueueCheck(-3);
         end
         if KbName(first_press) == "ESCAPE"  % Escapes if the participant wants to finish the experiment.
-            time = -1;                                                                                                   
+            time = "escape";                                                                                                   
             return
         end
         stop_time = first_press(first_press > 0);

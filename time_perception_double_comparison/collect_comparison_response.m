@@ -16,7 +16,7 @@ function response = collect_comparison_response(comp_type)
     end   
     % Leaves experiment if participant clicks escape key. 
     if KbName(first_press) == "ESCAPE"  
-        response = -1;                                                                                                   
+        response = "escape";                                                                                                   
         return  
     % Encodes participant's choice only if it's one of these three. 
     % They can mean different things depending on the experiment.

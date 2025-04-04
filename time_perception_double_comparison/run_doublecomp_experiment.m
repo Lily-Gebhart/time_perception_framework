@@ -113,7 +113,7 @@ function results = run_doublecomp_experiment(directory_link, save_after, partici
         condition_num = train_condition_list(trial_counter);
         [stimulus, standard_duration, comp_duration] = find_condition(condition_num, stimulus, twoimage_comp_durations, twoimage_standard_durations);
         response = run_trial(stimulus, standard_duration, comp_duration, comp_order, comp_type, back_color, black, directory_link, window, screenXpixels, screenYpixels);
-        if response == -1
+        if response == "escape"
             return
         end
     end
@@ -158,7 +158,7 @@ function results = run_doublecomp_experiment(directory_link, save_after, partici
         condition_num = exp_condition_list(trial_counter);
         [stimulus, standard_duration, comp_duration] = find_condition(condition_num, stimulus, twoimage_comp_durations, twoimage_standard_durations);
         result = run_trial(stimulus, standard_duration, comp_duration, comp_order, comp_type, back_color, black, directory_link, window, screenXpixels, screenYpixels);
-        if result == -1
+        if result == "escape"
             return
         end
         results.Stimulus(trial_counter) = stimulus;

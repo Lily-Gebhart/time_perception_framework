@@ -14,7 +14,7 @@ library(quickpsy)
 library(tidyverse)
 library(broom)
 
-# Change results directory and time conditions. 
+# Change results directory and time conditions 
 results_dir = "/Users/lilygebhart/Downloads/time_perception/time_perception_single_comparison/results" # Replication results directory name
 time_conditions = c(0.5, 1, 1.5)
 
