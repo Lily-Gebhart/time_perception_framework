@@ -28,7 +28,7 @@ function results = run_experiment(directory_link, save_after, participant_number
         condition_num = train_condition_list(trial_counter);
         [stimulus, duration] = find_condition(stimulus_type, durations, condition_num);
         [~, ~, response] = run_trial(stimulus, duration, replication_type, back_color, black, directory_link, window, screenYpixels, screenXpixels);
-        if response == "escape"
+        if string(response) == "escape"
             return
         end
     end
@@ -72,7 +72,7 @@ function results = run_experiment(directory_link, save_after, participant_number
         condition_num = exp_condition_list(trial_counter);
         [stimulus, duration] = find_condition(stimulus_type, durations, condition_num);
         [stimulus, duration, response] = run_trial(stimulus, duration, replication_type, back_color, black, directory_link, window, screenYpixels, screenXpixels);
-        if response == "escape"
+        if string(response) == "escape"
             return
         end
         results.Image1(trial_counter) = stimulus;

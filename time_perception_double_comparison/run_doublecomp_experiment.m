@@ -63,11 +63,11 @@ function results = run_doublecomp_experiment(directory_link, save_after, partici
     end
     
     if comp_type == "shorter/longer"
-        statement = 'Press the 1 key if the second image presented felt shorter in duration than the first image. \n Press the 2 key if the second image presented felt longer than the first image. \n \n Press the spacebar to continue.';
+        statement = 'Press the 1 key if the first image presented felt longer in duration. \n Press the 2 key if the second image presented felt longer in duration. \n \n Press the spacebar to continue.';
     elseif comp_type == "equal/not equal"
         statement = 'Press the 1 key if the second image presented felt like it was presented for the same duration as the first image. \n Press 2 otherwise. \n \n Press the spacebar to continue.';
     else 
-        statement = 'Press the 1 key if the second image presented felt shorter in duration than the first image. \n Press 2 if the second image presented feels like it was presented for the same duration as the first image. \n Press 3 if the second image presented felt longer than the first image. \n \n Press the spacebar to continue.';
+        statement = 'Press the 1 key if the first image presented felt longer in duration. \n Press 2 if both images felt like they were presented for the same duration. \n Press 3 if the second image presented felt longer than the first image. \n \n Press the spacebar to continue.';
     end 
     success = display_screen_text(statement, ...
             window, ...

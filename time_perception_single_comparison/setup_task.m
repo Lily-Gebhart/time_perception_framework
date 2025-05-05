@@ -14,7 +14,7 @@ function [est_time, total_num_trials, results_table, exp_condition_list, train_c
     
     % Creating the results table. 
     table_var_types = ["string", "double", "string"];
-    table_var_names =  ["Image", "Time_Condition", "Response"];
+    table_var_names =  ["Stimulus", "Time_Condition", "Response"];
     results_table = table('Size', [total_num_trials 3], 'VariableTypes', table_var_types, 'VariableNames', table_var_names);
     
     % Determining estimated experiment time. Includes training and

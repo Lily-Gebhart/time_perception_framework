@@ -23,29 +23,39 @@ end
 
 stimulus_link = directory_link + stimulus;
 
-
-texture = Screen('MakeTexture', window, resize_image(imread(stimulus_link), screenYpixels));
-Screen('DrawTexture', window, texture, [], [], 0);
-Screen('Flip', window);
-WaitSecs(duration1);
-Screen('FillRect', window, back_color); 
-Screen('Flip', window);
-WaitSecs(1);
-
-Screen('DrawTexture', window, texture, [], [], 0);
-Screen('Flip', window);
-WaitSecs(duration2);
-Screen('FillRect', window, back_color);
-Screen('Flip', window);
-WaitSecs(0.5);
-
-% Response signal
-WaitSecs(0.5);
+% Fixation cross
 Screen('FillRect', window, back_color);
 Screen('Flip', window);
 Screen('TextSize', window, round(screenXpixels/40));
 Screen('TextFont', window, 'Arial');
 DrawFormattedText(window, '+', 'center', 'center', 0, round(screenXpixels*(1/20)), black);   
+Screen('Flip', window);
+WaitSecs(1);
+
+% Draw first image to screen
+texture = Screen('MakeTexture', window, resize_image(imread(stimulus_link), screenYpixels));
+Screen('DrawTexture', window, texture, [], [], 0);
+Screen('Flip', window);
+WaitSecs(duration1);
+
+% Fixation cross
+Screen('FillRect', window, back_color);
+Screen('Flip', window);
+Screen('TextSize', window, round(screenXpixels/40));
+Screen('TextFont', window, 'Arial');
+DrawFormattedText(window, '+', 'center', 'center', 0, round(screenXpixels*(1/20)), black);   
+Screen('Flip', window);
+WaitSecs(1);
+
+% Draw second image to screen
+Screen('DrawTexture', window, texture, [], [], 0);
+Screen('Flip', window);
+WaitSecs(duration2);
+Screen('FillRect', window, back_color);
+Screen('Flip', window);
+
+% Response signal
+Screen('FillRect', window, back_color);
 Screen('Flip', window);
 
 response = collect_comparison_response(comp_type);
@@ -54,5 +64,6 @@ if response == "shorter" && duration1 == comp_duration
     response = "longer";
 elseif response == "longer" && duration1 == comp_duration
     response = "shorter";
-WaitSecs(0.5);
+
+WaitSecs(1);
 end

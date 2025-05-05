@@ -3,13 +3,12 @@
  Screen('Preference', 'SkipSyncTests', 1);
  sca; 
  close all;                       
- clear;
- 
+ clear;   
 
 % General Parameters - to be changed for each operating system and experiment.
 directory_link = "/Users/lilygebhart/Downloads/time_perception/time_perception_double_comparison/";      % directory for experiment folders
 save_after = 5;                     % Save data after __ trials.
-participant_number = 0;             % participant number
+participant_number = 4;             % participant number
 background_color = "white";         % Choices: "white", "grey"
 num_breaks = 1;                     % Number of breaks participants will have throughout the experiment.
 num_training_trials = 5;            % Number of training trials to include before data collection. 

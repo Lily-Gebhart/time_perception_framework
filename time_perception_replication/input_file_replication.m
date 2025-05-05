@@ -7,7 +7,7 @@
  
 
 % General Parameters - to be changed for each operating system and experiment.
-directory_link = "Change me!";      % directory for experiment folders
+directory_link = "/Users/lilygebhart/Downloads/time_perception/time_perception_replication/";      % directory for experiment folders
 save_after = 5;                     % Save data after __ trials.
 participant_number = 6      ;             % participant number
 background_color = "white";         % Choices: "white", "grey"
