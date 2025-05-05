@@ -67,7 +67,7 @@ For this version of the experiment, we want participants to hold down on the spa
 
 ```
 % General Parameters - to be changed for each operating system and experiment.
-directory_link = "downloads/time_perception";      % directory for experiment folders
+directory_link = "downloads/time_perception/time_perception_replication/";      % directory for experiment folders
 save_after = 5;                     % Save data after __ trials.
 participant_number = 1;             % participant number
 background_color = "white";         % Choices: "white", "grey"
@@ -90,7 +90,7 @@ Suppose for the single image comparison experiment, we want to run a similar exp
 
 ```
 % General Parameters - to be changed for each operating system and experiment.
-directory_link = "downloads/time_perception";      % directory for experiment folders
+directory_link = "downloads/time_perception/time_perception_single_comparison/";      % directory for experiment folders
 save_after = 5;                     % Save data after __ trials.
 participant_number = 1;             % participant number
 background_color = "white";         % Choices: "white", "grey"
@@ -112,7 +112,7 @@ Suppose for the double image comparison experiment, we want to run the example u
 
 ```
 % General Parameters - to be changed for each operating system and experiment.
-directory_link = "Change me!";      % directory for experiment folders
+directory_link = "downloads/time_perception/time_perception_double_comparison/";      % directory for experiment folders
 save_after = 5;                     % Save data after __ trials.
 participant_number = 0;             % participant number
 background_color = "white";         % Choices: "white", "grey"
@@ -131,7 +131,7 @@ num_comp_trials = 10;            % How many trials to run for each standard/comp
 
 
 # How to run experiments 
-Once you've entered in the parameters for your experiment of choice (and make sure you've set the participant_number, which will be used to save participant data), you're now ready to run the experiment! Simply write the name of your experiment's input file in the command window, press enter, and the experiment will begin! All instructions for the experiments will be presented to the participants before the task begins. 
+Once you've entered in the parameters for your experiment of choice (and make sure you've set the participant_number, which will be used to save participant data), you're now ready to run the experiment! Simply write the name of your experiment's input file (i.e. input_file_replication, etc.) in the command window, press enter, and the experiment will begin! All instructions for the experiments will be presented to the participants before the task begins. 
 
 # Questions? 
 If you have questions, comments, or concerns, contact ...
