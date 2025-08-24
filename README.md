@@ -134,4 +134,4 @@ num_comp_trials = 10;            % How many trials to run for each standard/comp
 Once you've entered in the parameters for your experiment of choice (and make sure you've set the participant_number, which will be used to save participant data), you're now ready to run the experiment! Simply write the name of your experiment's input file (i.e. input_file_replication, etc.) in the command window, press enter, and the experiment will begin! All instructions for the experiments will be presented to the participants before the task begins. 
 
 # Questions? 
-If you have questions, comments, or concerns, contact ...
+If you have questions, comments, or concerns, feel free to reach out to Lily Gebhart at gebhart@stanford.edu. 
