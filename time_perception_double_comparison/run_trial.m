@@ -1,12 +1,6 @@
+% FUNCTION: Function to run each trial. 
 function [response] = run_trial(stimulus, standard_duration, comp_duration, comp_order, comp_type, back_color, black, directory_link, window, screenXpixels, screenYpixels)
-% Function to run each trial. 
-% Requires knowledge of the 
-%   stimuli used on each trial (list), 
-%   durations each stimulus should be displayed for (list, measurements in seconds),
-%   and the response_type (indicated in the main experiment function).
-% Returns the trial response. 
 
-% Randomize stimulus presentation order? 
 if comp_order == "random"
     order = randperm(2);
     if order(1) == 1

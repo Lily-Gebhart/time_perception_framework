@@ -1,3 +1,5 @@
+% FUNCTION: Function to set up the experiment based on parameter values
+% provided in the input file. 
 function [est_time, total_num_trials, results_table, exp_condition_list, train_condition_list, break_times] = setup_task(stimulus_type, durations, num_trials, num_training_trials, num_breaks)
     % Total number of trials and conditions in the experiment
     total_num_conditions = length(stimulus_type) * length(durations);

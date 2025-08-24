@@ -1,8 +1,8 @@
+% FUNCTION: Function to run the replication experiment. 
 function results = run_experiment(directory_link, save_after, participant_number, ...
     background_color, num_breaks, num_training_trials, replication_type, stimulus_type, durations, ...
     num_trials, white, grey, black, window, screenXpixels, screenYpixels)
-    % FIXME: If failed at any time, do the exit sequence
-
+    
     [est_time, num_trials, results, exp_condition_list, train_condition_list, break_times] = setup_task(stimulus_type, durations, num_trials, num_training_trials, num_breaks);
 
     if background_color == "grey"

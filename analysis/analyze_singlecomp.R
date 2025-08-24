@@ -1,22 +1,24 @@
-# Code to analyze a single comparison time perception experiment
+# Code to analyze a single comparison time perception experiment.
 # Sources:(1) https://www.rpubs.com/Strongway/psy_fun 
 
 
-# Install packages (if not already downloaded)
+# Install packages (if not already downloaded).
 #install.packages("readr")
 #install.packages("quickpsy")
 #install.packages("tidyverse")
 #install.packages("broom")
+#install.packages("patchwork")
 
 # Import packages
 library(readr)
 library(quickpsy)
 library(tidyverse)
 library(broom)
+library(patchwork)
 
 # Change results directory and time conditions 
-results_dir = "/Users/lilygebhart/Downloads/time_perception/time_perception_single_comparison/results" # Replication results directory name
-time_conditions = c(0.5, 1, 1.5)
+results_dir = "" # Edit Me! Add the single comp results directory name here!
+time_conditions = c() # Edit Me! Add a vector of time conditions here!
 
 # Construct data frame.
 avg_data = data.frame(participant_num=numeric(), time_condition=numeric(), avg_longer=numeric(), longer=numeric(), shorter=numeric(), num_trials=numeric())
@@ -38,12 +40,12 @@ for (file in files){
 print(avg_data)
 
 # Visualize Psychometric curves
-avg_data %>%ggplot( aes(x=time_condition, y=avg_longer)) +  
+avg_data %>% ggplot( aes(x=time_condition, y=avg_longer)) +  
   geom_point(size=3) + 
   geom_smooth(method=glm, method.args= list(family = binomial(logit)), 
               se = FALSE) +
   xlab('Durations (sec)') + ylab('Proportion of Longer Response') +
-  facet_wrap(~participant_num)
+  facet_grid(.~participant_num)
 
 # Estimate Psychometric Functions using a GLM approach
 glm_results = avg_data %>% 

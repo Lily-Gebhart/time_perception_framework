@@ -1,9 +1,9 @@
+% FUNCTION: Function to run the double comparison experiment. 
 function results = run_doublecomp_experiment(directory_link, save_after, participant_number, ...
     background_color, num_breaks, num_training_trials, stimulus, twoimage_standard_durations, ...
     twoimage_comp_durations, num_comp_trials, comp_type, comp_order, ...
     white, grey, black, window, screenXpixels, screenYpixels)
-    % FIXME: If failed at any time, do the exit sequence
-    
+
     [est_time, num_trials, results, exp_condition_list, train_condition_list, break_times] = setup_task(twoimage_comp_durations, num_comp_trials, num_training_trials, num_breaks);
 
     if background_color == "grey"

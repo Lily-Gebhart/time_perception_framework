@@ -1,6 +1,6 @@
+% FUNCTION: Function to run the experiment introduction sequence, identical
+% but customizable for each experiment! 
 function run_experiment_intro(replication_type, window, back_color, black, screenXpixels)
-% Runs the experiment intro, identical but customizable for each
-% experiment! 
     statement = 'In the task, you will be presented with an image for a period of time.  Pay attention to how long the image is presented on the screen. \n \n Press the spacebar to continue';
     display_screen_text(statement, ...
             window, ...

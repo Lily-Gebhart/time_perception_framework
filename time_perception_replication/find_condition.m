@@ -1,3 +1,6 @@
+% FUNCTION: Function to find the stimulus, standard duration, and
+% comparison duration to present an image for, given a trial indicator
+% number. 
 function [image, duration] = find_condition(stimulus_type, durations, number)
 % Uses the assigned condition number to find the image and duration needed
 % for the trial. 

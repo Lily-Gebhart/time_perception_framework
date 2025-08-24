@@ -1,4 +1,4 @@
-% Function to collect response for different experiment types. 
+% FUNCTION: Function to collect response for different experiment types. 
 function time = collect_replication_response(replication_type)
     keylist=zeros(1, 256);
     keylist([41,44])=1; % FIXME: need to find a universal way to indicate space key

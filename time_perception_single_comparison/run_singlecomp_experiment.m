@@ -1,8 +1,8 @@
+% FUNCTION: Function to run the single comparison experiment. 
 function results = run_singlecomp_experiment(directory_link, save_after, participant_number, ...
     background_color, num_breaks, num_training_trials, stimulus, standard_duration, ...
     comp_durations, num_comp_trials, comp_type, ...
     white, grey, black, window, screenXpixels, screenYpixels)
-    % FIXME: If failed at any time, do the exit sequence
     
     [est_time, num_trials, results, exp_condition_list, train_condition_list, break_times] = setup_task(comp_durations, num_comp_trials, num_training_trials, num_breaks);
 

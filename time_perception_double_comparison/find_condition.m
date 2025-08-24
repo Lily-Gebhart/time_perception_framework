@@ -1,8 +1,11 @@
+% FUNCTION: Function to find the stimulus, standard duration, and
+% comparison duration to present an image for, given a trial indicator
+% number. 
 function [stimulus, standard_duration, comp_duration] = find_condition(number, stimulus, twoimage_comp_durations, twoimage_standard_durations)
-    num_std_durations = length(twoimage_standard_durations)
+    num_std_durations = length(twoimage_standard_durations);
     %num_comp_durations = length(twoimage_comp_durations)
-    std_duration_index = mod(number, num_std_durations) + 1
-    comp_duration_index = ceil(number./num_std_durations)
-    standard_duration = twoimage_standard_durations(std_duration_index)
-    comp_duration = twoimage_comp_durations(std_duration_index, comp_duration_index)
+    std_duration_index = mod(number, num_std_durations) + 1;
+    comp_duration_index = ceil(number./num_std_durations);
+    standard_duration = twoimage_standard_durations(std_duration_index);
+    comp_duration = twoimage_comp_durations(std_duration_index, comp_duration_index);
 end

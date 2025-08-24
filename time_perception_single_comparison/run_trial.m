@@ -1,10 +1,5 @@
+% FUNCTION: Function to run each trial. 
 function response = run_trial(directory_link, stimulus, duration, comp_type, window, back_color, black, screenXpixels, screenYpixels)
-% Function to run each trial. 
-% Requires knowledge of the 
-%   stimuli used on each trial (list), 
-%   durations each stimulus should be displayed for (list, measurements in seconds),
-%   and the response_type (indicated in the main experiment function).
-% Returns the trial response. 
 stimulus_link = directory_link + stimulus;
 
 texture = Screen('MakeTexture', window, resize_image(imread(stimulus_link), screenYpixels));

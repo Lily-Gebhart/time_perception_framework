@@ -1,7 +1,6 @@
+% FUNCTION: Function to run the experiment introduction sequence, identical
+% but customizable for each experiment! 
 function run_experiment_intro()
-% Runs the experiment intro, identical but customizable for each
-% experiment! 
-
 if exp_type == "replication"
     statements = 'In the task, you will be presented with an image for a period of time.  Pay attention to how long the image is presented on the screen. \n \n Press the spacebar to continue';
     statements = append(statements, 'When the image is removed from the screen, you will be replicating how long the image felt like it was on screen. \n \n Press the spacebar to continue');
